@@ -5,7 +5,7 @@ module.exports = {
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: "https://yeetus51.github.io/Todo-List",
+    publicPath: "https://yeetus51.github.io/Todo-List/",
   },
   module: {
     rules: [
