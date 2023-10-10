@@ -212,7 +212,7 @@ eval("module.exports = __webpack_require__.p + \"2788bb873b16b90eed8c.png\";\n\n
 /******/ 	
 /******/ 	/* webpack/runtime/publicPath */
 /******/ 	(() => {
-/******/ 		__webpack_require__.p = "/https://yeetus51.github.io/Todo-List//";
+/******/ 		__webpack_require__.p = "https://yeetus51.github.io/Todo-List/";
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */
