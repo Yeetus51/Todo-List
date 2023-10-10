@@ -1,11 +1,22 @@
 {
+  "name": "Todo-List",
+  "version": "1.0.0",
+  "description": "My webpack project",
+  "main": "index.js",
+  "repository": {
+    "url": "git+https://github.com/Yeetus51/Todo-List.git"
+  },
   "devDependencies": {
     "css-loader": "^6.8.1",
+    "gh-pages": "^6.0.0",
     "style-loader": "^3.3.3",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4"
   },
-  "dependencies": {
-    "gh-pages": "^6.0.0"
+  "scripts": {
+    "build": "webpack --mode=development",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "watch": "webpack --watch"
   }
 }
