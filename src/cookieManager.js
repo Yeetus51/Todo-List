@@ -2,41 +2,32 @@ export const add = (pKey, pValue, pExpieryDays) =>{
     return document.cookie = `${pKey}=${pValue};`; 
 }
 export const editValue = (pKey,pValue) => {
-    //cookieEditor.add(pKey,pValue); 
+    if(pKey.contains(pKey)) cookieEditor.add(pKey,pValue); 
 }
 export const remove = (pKey) => {
     document.cookie = `${pKey}=; expires=Thu, 01 Jan 1970 00:00:00 UTC`;
 }
 export const contains = (pKey) =>{
-    let cookie = document.cookie.split(";");
-    for(let i =0; i < cookie.length; i++){
-        let cookieKey = cookie[i].split("=")[0]; 
-        if(cookieKey[0] === " ")cookieKey = cookieKey.substring(1);
-        if(cookieKey === pKey) return true;
-    }
-    return false; 
+    if(getCookie(pKey)) return true;
+    return false;   
 }
 export const getCookie = (pKey) =>{
     let cookie = document.cookie.split(";");
     for(let i =0; i < cookie.length; i++){
-        let cookieKey = cookie[i].split("=")[0]; 
-        if(cookieKey[0] === " ")cookieKey = cookieKey.substring(1);
-        if(cookieKey === pKey) return cookie[i].split("=")[1];
+        let cookieKey = fixKey(cookie[i]);
+        if(cookieKey === pKey) return cookieKey;
     }
-    return "NOT FOUND"; 
+    return null; 
 }
 export const getAllCookieKeys = () =>{
     let cookie = document.cookie.split(";"); 
     let keyArray = []; 
     for(let i =0; i < cookie.length; i++){
-        let cookieKey = cookie[i].split("=")[0]; 
-        if(cookieKey[0] === " ")cookieKey = cookieKey.substring(1);
+        let cookieKey = fixKey(cookie[i]);
         keyArray.push(cookieKey); 
     }
     return keyArray; 
 }
-
-
 export const removeAllCookies = () =>{
     let deleteAllCookies = confirm("are you sure you want to delete all cookies?");
     if(!deleteAllCookies) return;
@@ -45,4 +36,9 @@ export const removeAllCookies = () =>{
         remove(key);
     });
     alert("all cookies were deleted");
+}
+const fixKey = (cookie) =>{
+    let cookieKey = cookie.split("=")[0]; 
+    if(cookieKey[0] === " ")cookieKey = cookieKey.substring(1);
+    return cookieKey;
 }

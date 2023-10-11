@@ -1,5 +1,7 @@
 import "./style.css";
-import * as cookieEditor from "./cookieManager.js" 
+import "./signupstyle.css";
+import * as cookieEditor from "./cookieManager.js";
+import "./uiManager.js";
 import "./../node_modules/@fortawesome/fontawesome-free/css/fontawesome.css";
 import "./../node_modules/@fortawesome/fontawesome-free/css/brands.css";
 import "./../node_modules/@fortawesome/fontawesome-free/css/solid.css";
@@ -31,7 +33,9 @@ function test(){
 
     console.log(document.cookie);
 
+    //cookieEditor.removeAllCookies(); 
 
+    // Either Display:none or Visibility:hidden
 
 
 
