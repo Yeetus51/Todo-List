@@ -15,7 +15,7 @@ export const getCookie = (pKey) =>{
     let cookie = document.cookie.split(";");
     for(let i =0; i < cookie.length; i++){
         let cookieKey = fixKey(cookie[i]);
-        if(cookieKey === pKey) return cookieKey;
+        if(cookieKey[0] === pKey) return cookieKey[1];
     }
     return null; 
 }
@@ -38,7 +38,7 @@ export const removeAllCookies = () =>{
     alert("all cookies were deleted");
 }
 const fixKey = (cookie) =>{
-    let cookieKey = cookie.split("=")[0]; 
-    if(cookieKey[0] === " ")cookieKey = cookieKey.substring(1);
+    let cookieKey = cookie.split("="); 
+    if(cookieKey[0][0] === " ")cookieKey[0] = cookieKey[0].substring(1);
     return cookieKey;
 }

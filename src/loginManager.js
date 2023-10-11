@@ -60,9 +60,9 @@ function createAccount(name,username,password){
 ///////// IT DOESNT WORK CHECK WHY NOTHING HAPPENS 
 export function requestLogin(username,password){   
     if(CookieEditor.contains("username")){
-        if(CookieEditor.getCookie("username") === username.value){
+        if(CookieEditor.getCookie("username") == username.value){
             if(CookieEditor.getCookie("password") === password.value){
-                login(); 
+                uiManager.loginSeccuessful(); 
             }else{
                 password.setCustomValidity("Password was not correct, please try again");
                 password.reportValidity();
@@ -72,12 +72,7 @@ export function requestLogin(username,password){
             username.reportValidity();
         }
     }else{
-        username.setCustomValidity("NOTHING HAPPEND ");
+        username.setCustomValidity("NOTHING HAPPEND");
         username.reportValidity();
     }
-
-}
-
-function login(){
-
 }

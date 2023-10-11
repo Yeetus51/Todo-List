@@ -8,7 +8,7 @@ import "./../node_modules/@fortawesome/fontawesome-free/css/solid.css";
 
 
 
-test(); 
+//test(); 
 function test(){
     
     cookieEditor.add("username","Omair"); 

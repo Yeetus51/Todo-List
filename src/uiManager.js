@@ -11,7 +11,6 @@ if(UserAccountExists()){
     loginContainer.classList = "hidden";
 }
 
-
 function UserAccountExists(){
     return (cookieEditor.contains("username") && cookieEditor.contains("password") && cookieEditor.contains("name"));
 }
@@ -38,6 +37,11 @@ export function InitializeLogin(){
     signupContainer.classList = "hidden"; 
     loginContainer.classList = "formcontainer";
 }
+
+export function loginSeccuessful(){
+    loginContainer.classList = "hidden";
+
+} 
 
 
 
