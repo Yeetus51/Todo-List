@@ -8,19 +8,20 @@ body{
     padding: 0;
     box-sizing: border-box;
     background-color: #eee;
-    height: 100vh;
+    min-height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 .hidden{
     display: none;
 }
 .container{
-    height: 100%;
+    flex-grow: 1;
+    display: flex;
+    align-items: stretch;
 }
 
 .centerObject{
@@ -29,6 +30,11 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.tasksitecontainer{
+    display: flex;
+    flex: 1;
 }
 
 
