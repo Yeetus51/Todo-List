@@ -9,6 +9,9 @@ function hasNumber(string){
 
 
 export function validateSignUp(name, username, password,repeatPassword){
+
+    uiManager.loginSeccuessful(); 
+    return;
     if(name.value == undefined || name.value === "" || hasNumber(name.value)||name.value.length < 2){
         name.setCustomValidity("Please enter a valid Name");
         name.reportValidity();
@@ -29,7 +32,6 @@ export function validateSignUp(name, username, password,repeatPassword){
         repeatPassword.reportValidity();
         return;
     }
-
     createAccount(name.value,username.value,password.value);
 }
 export function validateLogin(username, password){
@@ -56,8 +58,6 @@ function createAccount(name,username,password){
     uiManager.InitializeLogin(); 
 }
 
-
-///////// IT DOESNT WORK CHECK WHY NOTHING HAPPENS 
 export function requestLogin(username,password){   
     if(CookieEditor.contains("username")){
         if(CookieEditor.getCookie("username") == username.value){

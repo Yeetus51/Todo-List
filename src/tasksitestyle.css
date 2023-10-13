@@ -1,0 +1,123 @@
+.tasksitecontainer{
+
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: #eee;
+}
+.maincontainer{
+
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px 50px;
+}
+
+
+.projectTitle{
+    width: 100%;
+    height: 80px;
+    background-color: rgb(255, 255, 255);
+
+    margin: 20px 0 ;
+
+    padding: 20px 40px;
+
+    font-size: large;
+    font-weight: 700;
+    display: flex;
+    align-items: center; 
+
+    border-radius: 15px;
+
+
+}
+
+.projectTitle p{
+    margin: 0;
+
+}
+
+.taskscontainer{
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+
+    border-radius: 15px;
+
+
+
+}
+
+.task, .newtask, .taskcomplete{
+    width: 100%;
+    height: 50px;
+    background-color: rgb(233, 233, 233);
+
+    margin: 5px 0;
+
+    display: flex;
+    padding: 5px 20px;
+    gap: 10px;
+    
+    align-items: center;
+    border-radius: 10px;
+}
+.newtask .checkmark, .newtask .deletetask{
+    visibility: hidden;
+}
+
+.checkmark{
+    background-color: white;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    border: solid 2px rgb(39, 124, 39);
+
+    display:  flex;
+    justify-content: center;
+    align-items: center;
+}
+.task .checkmark:hover{
+    background: radial-gradient(circle at 50%, rgb(164, 204, 164) 50%,  #ffffff 55%);
+}
+.taskcomplete .checkmark:hover{
+    background: radial-gradient(circle at 50%, rgb(64, 172, 64) 50%,  #ffffff 55%);
+}
+.taskcomplete .checkmark {
+    background: radial-gradient(circle at 50%, rgb(39, 124, 39) 50%,  #ffffff 55%);
+}
+.task input, .newtask input, .taskcomplete input{
+    flex: 1;
+    height: 60%;
+    border: 0;
+    background-color: transparent;
+    border-radius: 8px;
+    padding: 0 5px;
+    color: rgb(100, 100, 100);
+}
+.taskcomplete input {
+    text-decoration: line-through;
+}
+.taskcomplete .checkmark{
+    background: radial-gradient(circle at 50%, rgb(39, 124, 39) 50%,  #ffffff 55%);
+}
+
+.task input:focus, .newtask input:focus{
+    background: white;
+
+}
+
+.deletetask{
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}

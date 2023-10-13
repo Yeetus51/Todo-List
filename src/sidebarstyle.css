@@ -1,0 +1,80 @@
+
+.sidebar{
+    width: 400px;
+    height: 100%;
+    background-color: #eee;
+    padding: 20px;
+
+    border-right: solid 2px #bbbbbb;
+
+    /* filter: drop-shadow(0 0 20px #7e7e7e); */
+    box-shadow: 10px 0 20px -2px #d1d1d1;
+    box-sizing: border-box;
+}
+
+.projectsection{
+
+    width: 100%;
+    padding: 10px;
+
+    background-color: white;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;   
+    border-radius: 20px;
+
+}
+
+
+.projectsheader{
+
+    background-color: rgb(233, 233, 233);
+
+    width: 100%;
+    padding: 10px 10px;
+
+    box-sizing: border-box;
+    border-radius: 15px;
+
+}
+.projectsheader p{
+    margin: 0;
+    background-color: white;
+    width: 100%;
+    height: 30px;
+    padding: 5px 20px;
+    border-radius: 10px;
+
+    font-weight: 600;
+}
+
+.projectscontainer{
+
+    background-color: rgb(233, 233, 233);
+
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 10px;
+
+    display: flex;
+
+    flex-direction: column;
+    gap: 5px;
+
+    border-radius: 15px;
+}
+
+.project{
+
+    background-color: rgb(255, 255, 255);
+
+    height: 50px;
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 10px;
+    border-radius: 10px;
+}

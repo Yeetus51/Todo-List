@@ -3,13 +3,17 @@ import * as cookieEditor from "./cookieManager.js";
 
 let signupContainer = document.getElementById("signupcontainer");
 let loginContainer = document.getElementById("logincontainer");
+let logContainer = document.getElementById("logcontainer");
 
 
 if(UserAccountExists()){
     signupContainer.classList = "hidden";
+    
 }else{
     loginContainer.classList = "hidden";
 }
+
+
 
 function UserAccountExists(){
     return (cookieEditor.contains("username") && cookieEditor.contains("password") && cookieEditor.contains("name"));
@@ -38,9 +42,17 @@ export function InitializeLogin(){
     loginContainer.classList = "formcontainer";
 }
 
+function InitializeTaskPage(){
+
+
+    
+}
+
+
 export function loginSeccuessful(){
     loginContainer.classList = "hidden";
-
+    logContainer.classList = "hidden"; 
+    InitializeTaskPage(); 
 } 
 
 
