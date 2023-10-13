@@ -18,8 +18,9 @@ function addEvents(task){
     task.addEventListener('focusout', createNewTask);
     task.addEventListener('keypress', createNewTask);
     task.addEventListener('keypress', blurOnEnter);
+    task.addEventListener('focusout', blurOnFocusOut);
 
-    task.querySelector(".deletetask").addEventListener('click', deleteTask);
+    task.querySelector(".deletetask i").addEventListener('click', deleteTask);
 
 }
 
@@ -42,14 +43,47 @@ function deleteTask(event){
     event.target.parentNode.parentNode.remove();
 }
 
+function blurOnFocusOut(event){
+    validateTaskInput(event.target);
+}
+
 function blurOnEnter(event){
+    if(event.type != 'keypress' || event.key != 'Enter')return; 
+    validateTaskInput(event.target, event);
+}
+
+function validateTaskInput(target){
+    let input = removeEmptySpaceFromStart(target.value);  
+    if(target.parentNode.classList.value === "task" && input === ""){
+        try{
+            target.parentNode.remove(); 
+        }
+        catch (error){
+            //who asked
+        }
+        return;
+    }
+    target.value = input;
     if (event.type === 'keypress' && event.key === 'Enter') {
         event.target.blur();
     }
 }
 
+function removeEmptySpaceFromStart(string){
+    while(string[0] == " "){
+        if(string.length < 1) return undefined;
+        string = string.substring(1); 
+    }
+    return string; 
+}
 function createNewTask(event){
     if(newTaskInput.value === "")return; 
+    let fixedString = removeEmptySpaceFromStart(newTaskInput.value); 
+    if(!fixedString){
+        newTaskInput.value = ""; 
+        return;
+    }
+    newTaskInput.value = fixedString;
 
     if (event.type === 'focusout' || (event.type === 'keypress' && event.key === 'Enter')) {
         newTaskInput.removeEventListener('focusout', createNewTask);

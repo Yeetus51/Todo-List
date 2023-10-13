@@ -5,6 +5,7 @@ import "./sidebarstyle.css";
 import * as cookieEditor from "./cookieManager.js";
 import "./uiManager.js";
 import "./taskManager.js"
+import "./sidebarManager.js";
 import "./../node_modules/@fortawesome/fontawesome-free/css/fontawesome.css";
 import "./../node_modules/@fortawesome/fontawesome-free/css/brands.css";
 import "./../node_modules/@fortawesome/fontawesome-free/css/solid.css";
