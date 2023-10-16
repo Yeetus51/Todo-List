@@ -32,6 +32,22 @@
     margin: 0;
 
 }
+.taskstext{
+    width: 100%;
+    display: flex;
+    align-items: end;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    padding-bottom: 0;
+
+    border-radius: 15px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.taskstext p {
+    margin: 0;
+    font-weight: 600;
+}
 
 .taskscontainer{
 
@@ -42,8 +58,8 @@
     padding: 10px;
 
     border-radius: 15px;
-
-
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 
 }
 

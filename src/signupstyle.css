@@ -55,7 +55,12 @@
     font-weight: lighter;
     font-size: 13px;
     color: #818181;
-    width: 60%;
+    width: 80%;
+}
+.formcontainer a{
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
 }
 
 

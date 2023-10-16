@@ -1,4 +1,4 @@
-import * as CookieEditor from "./cookieManager.js"; 
+import * as CookieManager from "./cookieManager.js"; 
 import * as uiManager from "./uiManager.js"; 
 
 
@@ -9,9 +9,6 @@ function hasNumber(string){
 
 
 export function validateSignUp(name, username, password,repeatPassword){
-
-    uiManager.loginSeccuessful(); 
-    return;
     if(name.value == undefined || name.value === "" || hasNumber(name.value)||name.value.length < 2){
         name.setCustomValidity("Please enter a valid Name");
         name.reportValidity();
@@ -32,8 +29,13 @@ export function validateSignUp(name, username, password,repeatPassword){
         repeatPassword.reportValidity();
         return;
     }
-    createAccount(name.value,username.value,password.value);
+    createAccount(name,username,password);
+    // name.value = "";
+    // username.value = ""; 
+    password.value = "";
+    repeatPassword.value = "";  
 }
+
 export function validateLogin(username, password){
     if(username.value == undefined || username.value === "" || username.value.length < 2){
         username.setCustomValidity("Please enter a valid Name");
@@ -50,29 +52,50 @@ export function validateLogin(username, password){
 
 
 
-function createAccount(name,username,password){
-    CookieEditor.add("name",name);
-    CookieEditor.add("username",username);
-    CookieEditor.add("password",password);
+function createAccount(pName,pUsername,pPassword){
+    // CookieEditor.add("name",name);
+    // CookieEditor.add("username",username);
+    // CookieEditor.add("password",password);
+
+
+    if(CookieManager.usernameExists(pUsername.value)){
+        pUsername.setCustomValidity("This username already exists, please choose a different username"); 
+        pUsername.reportValidity(); 
+        return; 
+    }
+
+
+
+    let acocunt = {
+        name: pName.value,
+        username: pUsername.value,
+        password: pPassword.value,
+        projects: [
+            {title:"template",tasks:[{taskName:"task1",completeStatus:false}]},
+            {title:"template2",tasks:[{taskName:"task1",completeStatus:true},{taskName:"task2",completeStatus:false}]}
+        ]
+    }
+    let allAccounts = CookieManager.getAllCookieKeys(); 
+
+    CookieManager.add(`account${allAccounts.length}`,JSON.stringify(acocunt)); 
+
+    console.log(document.cookie);
 
     uiManager.InitializeLogin(); 
 }
 
-export function requestLogin(username,password){   
-    if(CookieEditor.contains("username")){
-        if(CookieEditor.getCookie("username") == username.value){
-            if(CookieEditor.getCookie("password") === password.value){
-                uiManager.loginSeccuessful(); 
-            }else{
-                password.setCustomValidity("Password was not correct, please try again");
-                password.reportValidity();
-            }
+
+
+export function requestLogin(username,password){
+    if(CookieManager.usernameExists(username.value)){
+        if(CookieManager.getAccountByUsername(username.value).password === password.value){
+            uiManager.loginSeccuessful(username.value); 
         }else{
-            username.setCustomValidity("This username does not exist");
-            username.reportValidity();
+            password.setCustomValidity("Password was not correct, please try again");
+            password.reportValidity();
         }
     }else{
-        username.setCustomValidity("NOTHING HAPPEND");
+        username.setCustomValidity("This username does not exist");
         username.reportValidity();
     }
 }

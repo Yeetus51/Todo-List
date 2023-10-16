@@ -4,24 +4,61 @@ import * as elementEditor from "./elementCreator";
 
 let projectscontainer = document.querySelector(".projectscontainer");
 
-let newProject = projectscontainer.querySelector(".newproject   ");
+let newProject = projectscontainer.querySelector(".newproject");
 
 let newProjectInput = newProject.querySelector("input");
+
+
+let projectsArray = []; 
 
 
 addEvents(newProject); 
 
 
-function addEvents(task){
-    task.addEventListener('focusout', createNewProject);
-    task.addEventListener('keypress', createNewProject);
-    task.addEventListener('keypress', blurOnEnter);
-    task.addEventListener('focusout', blurOnFocusOut);
 
-    task.querySelector(".deleteproject i").addEventListener('click', deleteProject);
+export function setProjectsFromAccount(account){
+
+    let projects = account.projects; 
+    console.log(projects);
+
+    projects.forEach(project => {
+        newProjectInput.value = project.title;
+        createNewProject(new Event('focusout'))
+
+        
+    });
+
+    // let activeProject = newProject; 
+    // activeProject.classList = "activeproject"
 
 }
 
+
+
+function addEvents(project){
+    project.addEventListener('focusout', createNewProject);
+    project.addEventListener('keypress', createNewProject);
+    project.addEventListener('keypress', blurOnEnter);
+    project.addEventListener('focusout', blurOnFocusOut);
+
+    project.addEventListener('click', setActiveProject); 
+
+    project.querySelector(".deleteproject i").addEventListener('click', deleteProject);
+
+}
+
+function setActiveProject(event){
+    console.log(event.target.classList.value);
+    if(event.target.classList.value === "activeproject" || event.target.parentNode.classList.value === "activeproject") return; 
+    projectsArray.forEach(project => {
+        project.classList = "project";
+    });
+    console.log(event.target.classList); 
+    if(event.target.classList.value === "newproject") return; 
+
+    event.target.classList = "activeproject"; 
+
+}
 
 
 function deleteProject(event){
@@ -80,6 +117,7 @@ function createNewProject(event){
         newProjectInput = newProject.querySelector("input"); 
         newProjectInput.value =""; 
         newProject.classList = "newproject";
+
         addEvents(newProject); 
         if(event.key === 'Enter'){
             temp.querySelector("input").blur();
@@ -91,6 +129,7 @@ function createNewProject(event){
 function convertToProject(newProject){
 
     newProject.classList = "project";
+    projectsArray.push(newProject); 
 
 }
 

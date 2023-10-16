@@ -2,7 +2,7 @@ export const add = (pKey, pValue, pExpieryDays) =>{
     return document.cookie = `${pKey}=${pValue};`; 
 }
 export const editValue = (pKey,pValue) => {
-    if(pKey.contains(pKey)) cookieEditor.add(pKey,pValue); 
+    if(pKey.contains(pKey)) add(pKey,pValue); 
 }
 export const remove = (pKey) => {
     document.cookie = `${pKey}=; expires=Thu, 01 Jan 1970 00:00:00 UTC`;
@@ -41,4 +41,17 @@ const fixKey = (cookie) =>{
     let cookieKey = cookie.split("="); 
     if(cookieKey[0][0] === " ")cookieKey[0] = cookieKey[0].substring(1);
     return cookieKey;
+}
+
+export function usernameExists(username){
+    return getAccountByUsername(username)? true:false; 
+}
+
+export function getAccountByUsername(username){
+    let accounts = getAllCookieKeys(); 
+    for(let i = 0; i < accounts.length; i++){
+        let account = JSON.parse(accounts[i][1]); 
+        if(account.username === username) return account; 
+    }
+    return false; 
 }

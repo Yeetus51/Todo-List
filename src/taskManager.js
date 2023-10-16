@@ -8,9 +8,6 @@ let newTaskInput = newTask.querySelector("input");
 let removeTaskButton = newTask.querySelector(".deletetask");
 
 
-
-
-
 addEvents(newTask); 
 
 
@@ -21,8 +18,13 @@ function addEvents(task){
     task.addEventListener('focusout', blurOnFocusOut);
 
     task.querySelector(".deletetask i").addEventListener('click', deleteTask);
-
 }
+
+
+
+
+
+
 
 
 
