@@ -23,6 +23,12 @@ createAccountLink.addEventListener('click', () =>{
     InitializeSignUp(); 
 })
 
+let loginAccountLink = signupContainer.querySelector("a"); 
+loginAccountLink.addEventListener('click', () =>{
+    InitializeLogin();
+})
+
+
 
 
 
@@ -48,6 +54,7 @@ document.querySelector(".login").addEventListener('click', () => {
 export function InitializeLogin(){
     signupContainer.classList = "hidden"; 
     loginContainer.classList = "formcontainer";
+    taskSiteContainer.classList = "hidden";
 }
 export function InitializeSignUp(){
     signupContainer.classList = "formcontainer"; 
@@ -56,17 +63,17 @@ export function InitializeSignUp(){
 }
 
 
-function InitializeTaskPage(username){
+function InitializeTaskPage(account){
     tasksitecontainer.classList = "tasksitecontainer";
-    sideBarManager.setProjectsFromAccount(cookieManager.getAccountByUsername(username))
+    sideBarManager.setProjectsFromAccount(account)
 
 }
 
 
-export function loginSeccuessful(username){
+export function loginSeccuessful(account){
     loginContainer.classList = "hidden";
     logContainer.classList = "hidden"; 
-    InitializeTaskPage(username); 
+    InitializeTaskPage(account); 
 } 
 
 

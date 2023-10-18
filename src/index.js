@@ -22,6 +22,8 @@ document.body.addEventListener('bruh', () => {
 
     console.log("YOUR MOM");
 
+    //cookieEditor.removeAllCookies();
+
     console.log(document.cookie);
 
 })

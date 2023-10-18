@@ -1,4 +1,5 @@
-import * as elementEditor from "./elementCreator"; 
+import * as elementEditor from "./elementCreator.js"; 
+import * as CookieManager from "./cookieManager.js";
 
 
 
@@ -20,17 +21,17 @@ export function setProjectsFromAccount(account){
 
     let projects = account.projects; 
     console.log(projects);
+    CookieManager.setAccount(account);
 
     projects.forEach(project => {
         newProjectInput.value = project.title;
-        createNewProject(new Event('focusout'))
-
-        
+        createNewProject(new Event('focusout'),true)
     });
 
-    // let activeProject = newProject; 
-    // activeProject.classList = "activeproject"
-
+    setAvailableProjectActive()
+}
+function setAvailableProjectActive(){
+    if(projectsArray.length>0) activateProject(projectsArray[0]);
 }
 
 
@@ -49,20 +50,29 @@ function addEvents(project){
 
 function setActiveProject(event){
     console.log(event.target.classList.value);
-    if(event.target.classList.value === "activeproject" || event.target.parentNode.classList.value === "activeproject") return; 
+    if(event.target.classList.value !== "project")return;
+    console.log(event.target.classList); 
+    activateProject(event.target); 
+}
+function activateProject(project){
     projectsArray.forEach(project => {
         project.classList = "project";
     });
-    console.log(event.target.classList); 
-    if(event.target.classList.value === "newproject") return; 
+    project.classList = "activeproject";
 
-    event.target.classList = "activeproject"; 
 
 }
-
-
 function deleteProject(event){
+    deleteFromArray(event.target.parentNode.parentNode, projectsArray);
     event.target.parentNode.parentNode.remove();
+    console.log(event.target.parentNode.parentNode.classList);
+    if(event.target.parentNode.parentNode.classList.value == "activeproject") setAvailableProjectActive();
+}
+
+function deleteFromArray(item,array){
+    for(let i = 0; i < array.length; i++){
+        if(array[i] == item)array.splice(i,1);
+    }
 }
 
 function blurOnFocusOut(event){
@@ -98,7 +108,7 @@ function removeEmptySpaceFromStart(string){
     }
     return string; 
 }
-function createNewProject(event){
+function createNewProject(event, displayOnly){
     if(newProjectInput.value === "")return; 
     let fixedString = removeEmptySpaceFromStart(newProjectInput.value); 
     if(!fixedString){
@@ -113,6 +123,7 @@ function createNewProject(event){
         
         let temp = newProject; 
         convertToProject(newProject)
+        if(!displayOnly)CookieManager.addNewProject(newProjectInput.value); 
         newProject = elementEditor.CloneTo(temp,projectscontainer); 
         newProjectInput = newProject.querySelector("input"); 
         newProjectInput.value =""; 
@@ -123,14 +134,13 @@ function createNewProject(event){
             temp.querySelector("input").blur();
             newProjectInput.focus();
         }
+        activateProject(temp);
     }   
 }
 
 function convertToProject(newProject){
-
     newProject.classList = "project";
     projectsArray.push(newProject); 
-
 }
 
 

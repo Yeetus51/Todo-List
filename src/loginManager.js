@@ -88,8 +88,11 @@ function createAccount(pName,pUsername,pPassword){
 
 export function requestLogin(username,password){
     if(CookieManager.usernameExists(username.value)){
-        if(CookieManager.getAccountByUsername(username.value).password === password.value){
-            uiManager.loginSeccuessful(username.value); 
+        let account = CookieManager.getAccountByUsername(username.value);
+        console.log("here is the account:");
+        console.log(account); 
+        if(account.password === password.value){
+            uiManager.loginSeccuessful(account); 
         }else{
             password.setCustomValidity("Password was not correct, please try again");
             password.reportValidity();
