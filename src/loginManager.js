@@ -77,9 +77,7 @@ function createAccount(pName,pUsername,pPassword){
     }
     let allAccounts = CookieManager.getAllCookieKeys(); 
 
-    CookieManager.add(`account${allAccounts.length}`,JSON.stringify(acocunt)); 
-
-    console.log(document.cookie);
+    CookieManager.add(`account${allAccounts.length+1}`,JSON.stringify(acocunt)); 
 
     uiManager.InitializeLogin(); 
 }
@@ -89,8 +87,6 @@ function createAccount(pName,pUsername,pPassword){
 export function requestLogin(username,password){
     if(CookieManager.usernameExists(username.value)){
         let account = CookieManager.getAccountByUsername(username.value);
-        console.log("here is the account:");
-        console.log(account); 
         if(account.password === password.value){
             uiManager.loginSeccuessful(account); 
         }else{

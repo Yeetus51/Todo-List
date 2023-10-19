@@ -1,5 +1,6 @@
 import * as elementEditor from "./elementCreator.js"; 
 import * as CookieManager from "./cookieManager.js";
+import * as TaskManager from "./taskManager.js";
 
 
 
@@ -20,18 +21,26 @@ addEvents(newProject);
 export function setProjectsFromAccount(account){
 
     let projects = account.projects; 
-    console.log(projects);
     CookieManager.setAccount(account);
 
     projects.forEach(project => {
-        newProjectInput.value = project.title;
-        createNewProject(new Event('focusout'),true)
+        initializeNewProject(project.title, true); 
     });
 
     setAvailableProjectActive()
 }
 function setAvailableProjectActive(){
-    if(projectsArray.length>0) activateProject(projectsArray[0]);
+    if(projectsArray.length>0) {
+        activateProject(projectsArray[0]);
+    }
+    else{
+        TaskManager.removeAllTasks();
+        TaskManager.setActiveProject(null);
+    }
+}
+export function initializeNewProject(projectTitle, displayOnly){
+    newProjectInput.value = projectTitle;
+    createNewProject(new Event('focusout'),displayOnly)
 }
 
 
@@ -49,9 +58,7 @@ function addEvents(project){
 }
 
 function setActiveProject(event){
-    console.log(event.target.classList.value);
     if(event.target.classList.value !== "project")return;
-    console.log(event.target.classList); 
     activateProject(event.target); 
 }
 function activateProject(project){
@@ -59,13 +66,24 @@ function activateProject(project){
         project.classList = "project";
     });
     project.classList = "activeproject";
+    let result = getProjectByName(project.querySelector("input").value); 
+    TaskManager.setActiveProject(result);
+    TaskManager.initializeTasksFromProject(result);
+    TaskManager.setProjectTitleText(result.title);
 
+}
+function getProjectByName(name){
+    let account = CookieManager.getAccount(); 
+    for(let i = 0; i<account.projects.length; i++){
+        if(account.projects[i].title === name) return account.projects[i]; 
 
+    }
 }
 function deleteProject(event){
     deleteFromArray(event.target.parentNode.parentNode, projectsArray);
+    let result = getProjectByName(event.target.parentNode.parentNode.querySelector("input").value); 
+    CookieManager.deleteProject(result); 
     event.target.parentNode.parentNode.remove();
-    console.log(event.target.parentNode.parentNode.classList);
     if(event.target.parentNode.parentNode.classList.value == "activeproject") setAvailableProjectActive();
 }
 
@@ -117,7 +135,9 @@ function createNewProject(event, displayOnly){
     }
     newProjectInput.value = fixedString;
 
+    
     if (event.type === 'focusout' || (event.type === 'keypress' && event.key === 'Enter')) {
+        if(!displayOnly)if(!checkProjectValidity(newProjectInput)) return false; 
         newProjectInput.removeEventListener('focusout', createNewProject);
         newProjectInput.removeEventListener('keypress', createNewProject);
         
@@ -141,6 +161,19 @@ function createNewProject(event, displayOnly){
 function convertToProject(newProject){
     newProject.classList = "project";
     projectsArray.push(newProject); 
+}
+
+function checkProjectValidity(projectTitle){
+
+    let account = CookieManager.getAccount(); 
+    for(let i = 0; i < account.projects.length; i++){
+        if(account.projects[i].title === projectTitle.value){
+            projectTitle.setCustomValidity("This Project Already Exists!");
+            projectTitle.reportValidity();
+            return false;   
+        }
+    }
+    return true; 
 }
 
 

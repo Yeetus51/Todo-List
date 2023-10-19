@@ -15,18 +15,18 @@ import "./../node_modules/@fortawesome/fontawesome-free/css/solid.css";
 
 
 
-const myEvent = new Event("bruh"); 
+// const myEvent = new Event("bruh"); 
 
 
-document.body.addEventListener('bruh', () => {
+// document.body.addEventListener('bruh', () => {
 
-    console.log("YOUR MOM");
+//     console.log("YOUR MOM");
 
-    //cookieEditor.removeAllCookies();
+//     //cookieEditor.removeAllCookies();
 
-    console.log(document.cookie);
+//     console.log(document.cookie);
 
-})
+// })
 
 
 document.body.dispatchEvent(myEvent); 

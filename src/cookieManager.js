@@ -1,18 +1,12 @@
 let account; 
+export function getAccount(){return account}; 
 export function setAccount(pAccount){
     account = pAccount; 
-    console.log("test");
-    console.log(account); 
-    doesAccountExist();
-}
-function doesAccountExist(){
-    console.log(`does this bitch ass exist?`);
-    console.log(account);
 }
 
+
 export const add = (pKey, pValue, pExpieryDays) =>{  
-    console.log(`im losing it ${pKey},${pValue}`);
-    return document.cookie = `${pKey}=${pValue};`; 
+    return document.cookie = `${pKey}=${pValue}; expires=Thu, 18 Dec 2029 12:00:00 UTC"`; 
 }
 export const editValue = (pKey,pValue) => {
     if(pKey.contains(pKey)) add(pKey,pValue); 
@@ -91,20 +85,28 @@ export function projectExists(projectTitle){
     return getProjectByTitle(projectTitle)?true:false; 
 }
 export function getProjectByTitle(projectTitle){
-    console.log(`wtf is going on frr:`);
-    console.log(account)
     for(let i = 0; i < account.projects.length; i++){
-        if(projectTitle === account.projects[i].title.value) return account.projects[i];
+        if(projectTitle === account.projects[i].title) return account.projects[i];
     }
     return false;
 }
 
 export function addNewProject(projectTitle){
     if(projectExists(projectTitle)) return "PROJECT EXISTS"; 
-    console.log(`wtf is going on:`);
-    console.log(account);
     account.projects.push({title:projectTitle,tasks:[]});
     updateAccount(); 
+}
+export function addNewTask(projectTitle, taskTitle, taskStatus){
+    let result = projectExists(projectTitle); 
+    if(result){
+        let project = getProjectByTitle(projectTitle); 
+        project.tasks.push({taskName:taskTitle,completeStatus:taskStatus})
+        updateAccount(); 
+    }
+    else{
+        return "PROJECT NOT FOUND";
+    }
+
 }
 
 export function editProjectTitle(projectTitle, newProjectTitle){
@@ -122,11 +124,38 @@ export function deleteProjectByTitle(projectTitle){
 }
 
 export function updateAccount(){
-    
-    console.log("This is what We got!");
     let accountKey = getKeyFromUsername(account.username);
-    console.log(accountKey);
     add(accountKey,JSON.stringify(account));
-    console.log("Account is Updated");
-    console.log(document.cookie);
+    // console.log("Account is Updated");
+    // console.log(document.cookie);
+}
+
+
+export function deleteProject(project){
+    deleteFromArray(project,account.projects); 
+    updateAccount();
+}
+
+export function deleteTask(project, task){
+    deleteFromArray(task,getProjectByTitle(project.title).tasks); 
+    updateAccount();
+}
+
+function deleteFromArray(item,array){
+    for(let i = 0; i < array.length; i++){
+        if(array[i] === item)array.splice(i,1);
+    }
+}
+
+export function setCompleteStatus(project, task, completeStatus){
+    let taskObject = getTaskByName(getProjectByTitle(project.title),task.taskName); 
+    taskObject.completeStatus = completeStatus; 
+    updateAccount();
+}
+
+
+function getTaskByName(project, name){
+    for(let i = 0; i <project.tasks.length; i++){
+       if(project.tasks[i].taskName === name) return project.tasks[i];
+    }
 }
